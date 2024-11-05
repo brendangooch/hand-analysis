@@ -1,14 +1,18 @@
 {
+    "verbose": false,
     "transform": {},
-    "testRegex": "((\\.|/)(test|spec))\\.js$",
-    "verbose": true,
-    "bail": 1,
+    "testMatch": [
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
     "coverageProvider": "v8",
     "moduleFileExtensions": [
         "js"
     ],
-    "slowTestThreshold": 5,
+    "slowTestThreshold": 3,
     "testPathIgnorePatterns": [
-        "/node_modules/"
+        "<rootDir>/node_modules/"
+    ],
+    "roots": [
+        "<rootDir>/tests/"
     ]
 }
