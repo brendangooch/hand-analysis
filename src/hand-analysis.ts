@@ -28,12 +28,6 @@ export class HandAnalysis {
         return this.cards.filter(card => card.isJoker).length;
     }
 
-    // NO cards in the hand have the same rank
-    public get noSameRanks(): boolean {
-        // Set removes duplicates, if any ranks are removed, it means there are at least 2 cards with the same rank
-        return Array.from(new Set(this.ranks)).length === this.cards.length;
-    }
-
     // return array containing index position of each card that is not a joker
     public get nonJokers(): number[] {
         return this.cards.map((card, index) => (card.isJoker) ? -1 : index).filter(index => index !== -1);
@@ -63,6 +57,12 @@ export class HandAnalysis {
     // number of cards in hand
     public get size(): number {
         return this.cards.length;
+    }
+
+    // NO cards in the hand have the same rank
+    public get noSameRanks(): boolean {
+        // Set removes duplicates, if any ranks are removed, it means there are at least 2 cards with the same rank
+        return Array.from(new Set(this.ranks)).length === this.cards.length;
     }
 
     // a clone of the card at index or null if no card at that index
