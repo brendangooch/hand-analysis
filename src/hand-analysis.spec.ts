@@ -32,9 +32,10 @@ function testAll(): void {
         testSameRank();
         testSameSuit();
         testValueBetween();
-        testAllSameRank();
-        testAllSameSuit();
-        testNoSameRanks();
+        testValueBetweenHighLow();
+        testGetAllSameRank;
+        testGetAllSameSuit;
+        testGetNoSameRanks();
 
     });
 }
@@ -1332,67 +1333,154 @@ function testValueBetween(): void {
     });
 }
 
+function testValueBetweenHighLow(): void {
+    describe('get valueBetweenHighLow()', () => {
+
+        describe('5 cards', () => {
+
+            test('returns -1 if less than 2 non-jokers (no high and low card)', () => {
+                hand.updateTypes([0, 0, 0, 0, 1]);
+                EXPECT.toBe(hand.valueBetweenHighLow, -1);
+            });
+
+            test('returns expected values ( 1 --> 5 = 4)', () => {
+                const original = [1, 2, 3, 4, 5];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 4);
+                });
+            });
+
+            test('returns expected values ( 4 --> 13 = 9)', () => {
+                const original = [4, 5, 6, 7, 26];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 9);
+                });
+            });
+
+        });
+
+        describe('4 cards', () => {
+
+            test('returns -1 if less than 2 non-jokers (no high and low card)', () => {
+                hand.updateTypes([0, 0, 0, 1]);
+                EXPECT.toBe(hand.valueBetweenHighLow, -1);
+            });
+
+            test('returns expected values ( 1 --> 4 = 3)', () => {
+                const original = [1, 2, 3, 4];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 3);
+                });
+            });
+
+            test('returns expected values ( 4 --> 13 = 9)', () => {
+                const original = [43, 5, 6, 26];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 9);
+                });
+            });
+
+        });
+
+        describe('3 cards', () => {
+
+            test('returns -1 if less than 2 non-jokers (no high and low card)', () => {
+                hand.updateTypes([0, 0, 1]);
+                EXPECT.toBe(hand.valueBetweenHighLow, -1);
+            });
+
+            test('returns expected values ( 1 --> 3 = 2)', () => {
+                const original = [1, 2, 3];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 2);
+                });
+            });
+
+            test('returns expected values ( 5 --> 13 = 8)', () => {
+                const original = [44, 6, 26];
+                const allCombos = everyCombination(original);
+                allCombos.forEach(types => {
+                    hand.updateTypes(<tPlayingCardType[]>types);
+                    EXPECT.toBe(hand.valueBetweenHighLow, 8);
+                });
+            });
+
+        });
+
+    });
+}
+
 // all cards in the hand have the same rank
-// public allSameRank(): boolean {
-function testAllSameRank(): void {
-    describe('allSameRank()', () => {
+// public allSameRank: boolean {
+function testGetAllSameRank(): void {
+    describe('get allSameRank()', () => {
 
         test('4 cards all the same rank returns true', () => {
             hand.updateTypes([1, 14, 27, 40]);
-            EXPECT.truthy(hand.allSameRank());
+            EXPECT.truthy(hand.allSameRank);
         });
 
         test('4 cards not the same rank returns false', () => {
             hand.updateTypes([1, 14, 27, 41]);
-            EXPECT.falsy(hand.allSameRank());
+            EXPECT.falsy(hand.allSameRank);
         });
 
         test('3 cards all the same rank returns true', () => {
             hand.updateTypes([1, 14, 27]);
-            EXPECT.truthy(hand.allSameRank());
+            EXPECT.truthy(hand.allSameRank);
         });
 
         test('3 cards not the same rank returns false', () => {
             hand.updateTypes([1, 14, 28]);
-            EXPECT.falsy(hand.allSameRank());
+            EXPECT.falsy(hand.allSameRank);
         });
 
     });
 }
 
 // all cards in the hand have the same suit
-// public allSameSuit(): boolean {
-function testAllSameSuit(): void {
-    describe('allSameSuit()', () => {
+// public get allSameSuit(): boolean {
+function testGetAllSameSuit(): void {
+    describe('get allSameSuit()', () => {
 
         test('5 cards all the same suit returns true', () => {
             hand.updateTypes([1, 3, 4, 5, 9]);
-            EXPECT.truthy(hand.allSameSuit());
+            EXPECT.truthy(hand.allSameSuit);
         });
 
         test('5 cards not the same suit returns false', () => {
             hand.updateTypes([1, 3, 4, 5, 19]);
-            EXPECT.falsy(hand.allSameSuit());
+            EXPECT.falsy(hand.allSameSuit);
         });
 
         test('4 cards all the same suit returns true', () => {
             hand.updateTypes([1, 3, 4, 5]);
-            EXPECT.truthy(hand.allSameSuit());
+            EXPECT.truthy(hand.allSameSuit);
         });
 
         test('4 cards not the same suit returns false', () => {
             hand.updateTypes([14, 3, 4, 5]);
-            EXPECT.falsy(hand.allSameSuit());
+            EXPECT.falsy(hand.allSameSuit);
         });
 
         test('3 cards all the same suit returns true', () => {
             hand.updateTypes([1, 4, 5]);
-            EXPECT.truthy(hand.allSameSuit());
+            EXPECT.truthy(hand.allSameSuit);
         });
 
         test('3 cards not the same suit returns false', () => {
             hand.updateTypes([1, 4, 18]);
-            EXPECT.falsy(hand.allSameSuit());
+            EXPECT.falsy(hand.allSameSuit);
         });
 
     });
@@ -1400,8 +1488,8 @@ function testAllSameSuit(): void {
 
 // NO cards in the hand have the same rank
 // public noSameRanks(): boolean {
-function testNoSameRanks(): void {
-    describe('noSameRanks()', () => {
+function testGetNoSameRanks(): void {
+    describe('get noSameRanks()', () => {
 
         describe('5 cards', () => {
 

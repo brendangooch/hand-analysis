@@ -59,10 +59,28 @@ export class HandAnalysis {
         return this.cards.length;
     }
 
+    // all cards in the hand have the same rank
+    public get allSameRank(): boolean {
+        // @ts-ignore
+        return this.sameRank(this.cards.map((card, index) => index));
+    }
+
+    // all cards in the hand have the same suit
+    public get allSameSuit(): boolean {
+        // @ts-ignore
+        return this.sameSuit(this.cards.map((card, index) => index));
+    }
+
     // NO cards in the hand have the same rank
     public get noSameRanks(): boolean {
         // Set removes duplicates, if any ranks are removed, it means there are at least 2 cards with the same rank
         return Array.from(new Set(this.ranks)).length === this.cards.length;
+    }
+
+    // numeric value between highest ranked card and lowest ranked card or -1 if there isn't a high or low card
+    public get valueBetweenHighLow(): number {
+        if (this.nonJokers.length < 2) return -1;
+        return this.valueBetween(this.lowCardIndex, this.highCardIndex);
     }
 
     // a clone of the card at index or null if no card at that index
@@ -111,24 +129,14 @@ export class HandAnalysis {
 
     // numeric value between cards at indexA and indexB or -1 if either card is a joker or an invalid index was entered
     public valueBetween(indexA: number, indexB: number): number {
-        const cardA = this.cardAt(indexA);
-        const cardB = this.cardAt(indexB);
-        if (cardA && cardB) {
-            return cardA.valueBetweenRanks(cardB);
+        if (indexA !== indexB) {
+            const cardA = this.cardAt(indexA);
+            const cardB = this.cardAt(indexB);
+            if (cardA && cardB) {
+                return cardA.valueBetweenRanks(cardB);
+            }
         }
         return -1;
-    }
-
-    // all cards in the hand have the same rank
-    public allSameRank(): boolean {
-        // @ts-ignore
-        return this.sameRank(this.cards.map((card, index) => index));
-    }
-
-    // all cards in the hand have the same suit
-    public allSameSuit(): boolean {
-        // @ts-ignore
-        return this.sameSuit(this.cards.map((card, index) => index));
     }
 
     private get ranks(): number[] {
@@ -143,7 +151,7 @@ export class HandAnalysis {
         return this.cards.map((card, index) => (card.isRankNumber(this.highCardRank)) ? index : -1).filter(index => index !== -1)[0];
     }
 
-    // ignore JOKERS (0 matches lowest rank otherwise)
+    // lowest ranked card excluding jokers (0)
     private get lowCardRank(): number {
         return Math.min(...this.ranks.filter(rank => rank !== 0));
     }
