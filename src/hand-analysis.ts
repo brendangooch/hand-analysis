@@ -143,8 +143,9 @@ export class HandAnalysis {
         return this.cards.map((card, index) => (card.isRankNumber(this.highCardRank)) ? index : -1).filter(index => index !== -1)[0];
     }
 
+    // ignore JOKERS (0 matches lowest rank otherwise)
     private get lowCardRank(): number {
-        return Math.min(...this.ranks);
+        return Math.min(...this.ranks.filter(rank => rank !== 0));
     }
 
     private get lowCardIndex(): number {

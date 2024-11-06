@@ -662,6 +662,12 @@ function testGetLowCard(): void {
 
         describe('5 cards', () => {
 
+            test('ignores joker', () => {
+                hand.updateTypes([0, 2, 1, 3, 4]);
+                EXPECT.toBe(hand.lowCard.index, 2);
+                EXPECT.toBe(hand.lowCard.card.rank.number, 1);
+            });
+
             test('identifies lowest rank number in hand', () => {
                 const original: tPlayingCardType[] = [40, 41, 42, 43, 44];
                 const combos = everyCombination(original);
