@@ -1407,27 +1407,27 @@ function testNoSameRanks(): void {
 
             test('5 cards the same rank', () => {
                 hand.updateTypes([1, 1, 14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('4 cards the same rank', () => {
                 hand.updateTypes([2, 1, 14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('3 cards the same rank', () => {
                 hand.updateTypes([2, 3, 14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('2 cards the same rank', () => {
                 hand.updateTypes([2, 3, 4, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('no cards the same rank', () => {
                 hand.updateTypes([2, 3, 4, 5, 40]);
-                EXPECT.truthy(hand.noSameRanks());
+                EXPECT.truthy(hand.noSameRanks);
             });
 
         });
@@ -1436,22 +1436,22 @@ function testNoSameRanks(): void {
 
             test('4 cards the same rank', () => {
                 hand.updateTypes([1, 14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('3 cards the same rank', () => {
                 hand.updateTypes([2, 14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('2 cards the same rank', () => {
                 hand.updateTypes([2, 3, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('no cards the same rank', () => {
                 hand.updateTypes([2, 3, 4, 5]);
-                EXPECT.truthy(hand.noSameRanks());
+                EXPECT.truthy(hand.noSameRanks);
             });
 
         });
@@ -1460,17 +1460,17 @@ function testNoSameRanks(): void {
 
             test('3 cards the same rank', () => {
                 hand.updateTypes([14, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('2 cards the same rank', () => {
                 hand.updateTypes([2, 27, 40]);
-                EXPECT.falsy(hand.noSameRanks());
+                EXPECT.falsy(hand.noSameRanks);
             });
 
             test('no cards the same rank', () => {
                 hand.updateTypes([2, 3, 4]);
-                EXPECT.truthy(hand.noSameRanks());
+                EXPECT.truthy(hand.noSameRanks);
             });
 
         });

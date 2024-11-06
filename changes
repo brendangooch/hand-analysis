@@ -1,0 +1,11 @@
+
+v2.0.0
+    updated all config files to latest templates
+    added a few new useful methods
+    re-factored most methods to take advantage of javascript built-in Array methods
+
+v2.0.1
+    fixed small bug - joker was matching as lowest ranked card - fixed, now ignores jokers
+
+v3.0.0
+    changed noSameRanks() method to get noSameRanks(), technically a breaking change; updated tests to reflect change
