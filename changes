@@ -9,3 +9,4 @@ v2.0.1
 
 v3.0.0
     changed noSameRanks() method to get noSameRanks(), technically a breaking change; updated tests to reflect change
+    removed changes file from .gitignore
